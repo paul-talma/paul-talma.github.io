@@ -1,0 +1,79 @@
+/* ---------------------------------------------------------------- */
+/* 1. Tokens — colors, fonts, sizing. Change values here, not below. */
+/* ---------------------------------------------------------------- */
+
+:root {
+  --bg: #fdfdfc;
+  --fg: #1a1a1a;
+  --muted: #666;
+  --rule: #ddd;
+  --link: #1a1a1a;
+  --font: JetBrains Mono, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --measure: 65ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111;
+    --fg: #eee;
+    --muted: #999;
+    --rule: #333;
+    --link: #eee;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* 2. Reset — strip browser defaults, nothing opinionated.          */
+/* ---------------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* 3. Base typography — element defaults, no classes.                */
+/* ---------------------------------------------------------------- */
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+h1,
+h2 {
+  line-height: 1.25;
+}
+
+a {
+  color: var(--link);
+}
+
+/* ---------------------------------------------------------------- */
+/* 4. Layout — page-level structure (.wrap, nav positioning).        */
+/* ---------------------------------------------------------------- */
+
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+/* ---------------------------------------------------------------- */
+/* 5. Components — nav, post-list, site-photo, footer, etc.          */
+/* One block per component, named after the class it styles.        */
+/* ---------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------- */
+/* 6. Utilities — small single-purpose overrides, used sparingly.    */
+/* ---------------------------------------------------------------- */
