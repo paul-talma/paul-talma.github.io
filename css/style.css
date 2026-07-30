@@ -3,22 +3,22 @@
 /* ---------------------------------------------------------------- */
 
 :root {
-  --bg: #fdfdfc;
-  --fg: #1a1a1a;
-  --muted: #666;
-  --rule: #ddd;
-  --link: #1a1a1a;
-  --font: JetBrains Mono, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #fbf1c7;
+  --fg: #654735;
+  --muted: #928374;
+  --rule: #eee0b7;
+  --link: #45707a;
+  --font: Iosevka, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --measure: 65ch;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #111;
-    --fg: #eee;
-    --muted: #999;
-    --rule: #333;
-    --link: #eee;
+    --bg: #282828;
+    --fg: #d4be98;
+    --muted: #928374;
+    --rule: #45403d;
+    --link: #7daea3;
   }
 }
 
@@ -73,6 +73,11 @@ a {
 /* 5. Components — nav, post-list, site-photo, footer, etc.          */
 /* One block per component, named after the class it styles.        */
 /* ---------------------------------------------------------------- */
+
+.site-photo {
+  max-width: 100%;
+  height: auto;
+}
 
 /* ---------------------------------------------------------------- */
 /* 6. Utilities — small single-purpose overrides, used sparingly.    */
