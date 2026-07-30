@@ -8,7 +8,7 @@
   --muted: #928374;
   --rule: #eee0b7;
   --link: #45707a;
-  --font: Iosevka, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font: SF Mono, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --measure: 65ch;
 }
 
@@ -21,6 +21,7 @@
     --link: #7daea3;
   }
 }
+
 
 /* ---------------------------------------------------------------- */
 /* 2. Reset — strip browser defaults, nothing opinionated.          */
@@ -77,6 +78,38 @@ a {
 .site-photo {
   max-width: 100%;
   height: auto;
+}
+
+.pub-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.pub-title {
+  margin: 0;
+}
+
+.pub-authors {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.9em;
+}
+
+.pub-abstract {
+  margin-top: 0.4rem;
+}
+
+.pub-abstract summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.9em;
+}
+
+.pub-abstract p {
+  color: var(--muted);
+  margin: 0.5rem 0 0;
 }
 
 /* ---------------------------------------------------------------- */
