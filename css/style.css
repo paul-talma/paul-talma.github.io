@@ -97,6 +97,13 @@ a {
   font-size: 0.9em;
 }
 
+.pub-venue {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.9em;
+  font-style: italic;
+}
+
 .pub-abstract {
   margin-top: 0.4rem;
 }
