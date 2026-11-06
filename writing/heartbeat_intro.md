@@ -51,7 +51,7 @@ def solve(problem):
 
 For example, consider the problem of summing a binary tree:
 
-```C
+```c
 struct node {
     double val;
     node *left;
@@ -61,7 +61,7 @@ struct node {
 
 A divide-and-conquer algorithm might go like this:
 
-```C
+```c
 double sum(struct node *n) {
     if (!n) {
         return 0;
@@ -94,7 +94,7 @@ Once `t` finishes, we get the solution `t.result` to the upper half of the probl
 
 Continuing our example, a fork-join implementation of the binary tree sum might look like
 
-```C
+```c
 double sum_fj(node *n) {
     if (!n)
         return 0;
@@ -121,7 +121,7 @@ For example, we can limit thread creation to the first `N` levels of the recursi
 
 Here is an improved fork-join algorithm, incorporating these fixes:
 
-```C
+```c
 double sum_fj_improved(node *n, size_t depth, size_t max_depth) {
     if (!n)
         return 0;

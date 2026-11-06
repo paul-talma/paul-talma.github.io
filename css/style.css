@@ -8,6 +8,13 @@
   --muted: #928374;
   --rule: #eee0b7;
   --link: #45707a;
+  --code-bg: #f2e5bc;
+  --syn-keyword: #c14a4a;
+  --syn-type: #b47109;
+  --syn-func: #6c782e;
+  --syn-string: #4c7a5d;
+  --syn-number: #945e80;
+  --syn-pre: #c35e0a;
   --font: SF Mono, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --measure: 65ch;
 }
@@ -19,6 +26,13 @@
     --muted: #928374;
     --rule: #45403d;
     --link: #7daea3;
+    --code-bg: #32302f;
+    --syn-keyword: #ea6962;
+    --syn-type: #d8a657;
+    --syn-func: #a9b665;
+    --syn-string: #89b482;
+    --syn-number: #d3869b;
+    --syn-pre: #e78a4e;
   }
 }
 
@@ -117,6 +131,88 @@ a {
 .pub-abstract p {
   color: var(--muted);
   margin: 0.5rem 0 0;
+}
+
+pre {
+  background: var(--code-bg);
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  font-size: 0.85em;
+  line-height: 1.5;
+}
+
+pre code {
+  font-family: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9em;
+}
+
+th,
+td {
+  border: 1px solid var(--rule);
+  padding: 0.3rem 0.75rem;
+  text-align: left;
+}
+
+th {
+  background: var(--code-bg);
+}
+
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cs {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.highlight .cp,
+.highlight .cpf {
+  color: var(--syn-pre);
+}
+
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .kr,
+.highlight .ow {
+  color: var(--syn-keyword);
+}
+
+.highlight .kt,
+.highlight .nc {
+  color: var(--syn-type);
+}
+
+.highlight .nf,
+.highlight .fm,
+.highlight .nb,
+.highlight .bp {
+  color: var(--syn-func);
+}
+
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .se,
+.highlight .si {
+  color: var(--syn-string);
+}
+
+.highlight .m,
+.highlight .mi,
+.highlight .mf,
+.highlight .mh,
+.highlight .mo {
+  color: var(--syn-number);
 }
 
 /* ---------------------------------------------------------------- */
