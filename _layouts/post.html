@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>paul talma - {{ page.title }}</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <div class="wrap">
+    <main>
+        <h1>writing</h1>
+    <nav>
+        <a href="/">about</a>
+        <a href="/writing.html" aria-current="page">writing</a>
+        <a href="/research.html">research</a>
+        <a href="/teaching.html">teaching</a>
+        <a href="/photo.html">photo</a>
+        <a href="https://github.com/paul-talma" target="_blank">github</a>
+    </nav>
+
+    <h2>{{ page.title }}</h2>
+
+{{ content }}
+    </main>
+  </div>
+</body>
+</html>
