@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>paul talma - {{ page.title }}</title>
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/style.css?v={{ site.time | date: '%s' }}" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -23,5 +23,11 @@
 {{ content }}
     </main>
   </div>
+  <script>
+    document.querySelectorAll("div.highlighter-rouge").forEach(function (el) {
+      var m = el.className.match(/language-(\S+)/);
+      if (m && m[1] !== "plaintext") el.dataset.lang = m[1];
+    });
+  </script>
 </body>
 </html>

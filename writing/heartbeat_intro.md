@@ -26,11 +26,11 @@ This prevents worker starvation.
 
 Schematically:
 
-| worker1 | worker2 | ... | worker T |
-| ------- | ------- | --- | -------- |
-| thread1 |         |     | thread3  |
-| thread2 |         |     | thread4  |
-| ...     |         |     | ...      |
+| worker1 | worker2 | worker3 |
+| ------- | ------- | ------- |
+| thread1 |         | thread3 |
+| thread2 |         | thread4 |
+|         |         |         |
 
 Here, worker 2 has finished its work and so will attempt to steal from another worker with pending threads.
 
