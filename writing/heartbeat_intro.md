@@ -30,7 +30,6 @@ Schematically:
 | ------- | ------- | ------- |
 | thread1 |         | thread3 |
 | thread2 |         | thread4 |
-|         |         |         |
 
 Here, worker 2 has finished its work and so will attempt to steal from another worker with pending threads.
 
@@ -88,7 +87,7 @@ def solve_fj(problem):
 
 Here, we first use `make_thread` to package the upper half of our problem in to a thread.
 The `fork(t)` call passes the thread to the scheduler, which is in charge of finding a worker to run it on.
-The current thread then solves the lower half of our problem and `join`s with the upper half.
+The current thread then solves the lower half of the problem and `join`s with the upper half.
 `join(t)` signals to the scheduler that the current worker is waiting for `t` to complete and can perform useful work while it waits.
 Once `t` finishes, we get the solution `t.result` to the upper half of the problem and `combine` it with the solution to the lower half.
 
@@ -99,6 +98,9 @@ double sum_fj(node *n) {
     if (!n)
         return 0;
 
+    if (!n->right) // don't fork if right child is NULL
+        return sum_fj(n->left) + n->val;
+
     thread t = make_thread(n->right);
     fork(&t);
     double left_sum = sum_fj(n->left);
@@ -108,18 +110,31 @@ double sum_fj(node *n) {
 ```
 
 As you can see, divide-and-conquer alorithms lend themselves well to fork-join parallelization.
-Note that this implementation is somehwhat naive.
-For example, we create a thread for the right branch even when `node->right == NULL`, incurring thread creation and scheduling overhead, only for the worker executing that thread to immediately return `0`.
-We could instead check whether the right child is `NULL` and skip the fork if it is.
-A more serious inefficiency concerns the **task granularity**.
-Our program creates a thread for each node in the tree, and each thread does very little work: return `0` if at a leaf node, or recurse and sum, resulting in low thread utilization.
-These overheads mean that on many inputs, our fork-join algorithm performs worse than our serial one!
+This implementation includes a small optimization: if the right child is `NULL`, we know that forking into it will return `0`, so we skip the fork and its associated overheads.
 
-We can remedy this problem in several ways.
-The simplest is to limit the number of threads we create.
-For example, we can limit thread creation to the first `N` levels of the recursion.
+Let's see what kind of speedup we get by parallelizing our algorithm.
 
-Here is an improved fork-join algorithm, incorporating these fixes:
+-- TODO: insert serial/fj benchmark
+
+While we get a significant speedup on some inputs, the fork-join algorithm actually perform worse than the serial one on others!
+
+### Granularity control
+
+The reason we fail to see a speedup on many inputs is that we create a thread for each node in the tree (except for nodes with no right child), and each thread ends up doing a small amount of work.
+For example, on a perfect binary tree of depth $N$, we create $2^N$ threads, the majority of which ($2^{N - 1}$) only perform a single addition.
+We therefore fail to amortize thread creation and scheduling overhead.
+
+A standard way to remedy this problem is through **granularity control**.
+The granularity of a parallel program is the amount of sequential work performed by an individual thread.
+Our fork-join program has maximal granularity: we spawn the maximal number of possible threads, hence each does a minimal amount of work.
+To reduce the granularity of our program, we can limit the number of threads we create.
+The simplest way to do this is to limit thread creation to the first `N` levels of the recursion.
+Below level `N`, each thread simply reverts to the serial recursive algorithm.
+Here's what it looks like on a perfect tree:
+
+-- TODO: insert binary tree with recursion cap diagram
+
+With this in mind, here's an improved fork-join algorithm:
 
 ```c
 double sum_fj_improved(node *n, size_t depth, size_t max_depth) {
@@ -129,9 +144,10 @@ double sum_fj_improved(node *n, size_t depth, size_t max_depth) {
     if (depth == max_depth) { // granularity control
         return sum(n);
     }
-    if (!n->right) { // don't fork if right child is NULL
+
+    if (!n->right) // don't fork if right child is NULL
         return sum_fj_improved(n->left, depth + 1, max_depth) + n->val;
-    }
+
     thread t = make_thread(n->right, depth + 1, max_depth);
     fork(&t);
     double left_sum = sum_fj_improved(n->left, depth + 1, max_depth);
@@ -153,5 +169,7 @@ To compare what we have so far, let's benchmark against a few sample trees:
 
 As expected, our optimized fork-join implementation performs better than our naive one.
 However, in several cases, both fall short of the serial implementation.
+
+This is because
 
 ## Hearteat Scheduling
